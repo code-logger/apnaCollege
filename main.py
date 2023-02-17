@@ -7,6 +7,7 @@ logging.basicConfig(level=logging.DEBUG,handlers=[
         logging.StreamHandler()
     ],format='%(levelname)s - %(message)s')
 
+
 def main(): 
     logging.debug("Started Running")
     base_data = course_details()
