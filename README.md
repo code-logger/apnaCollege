@@ -11,9 +11,9 @@
 # Configuration 
  Put your configuration in config.py
  
-[**Get User Token**](vids/getting_token_and_cookie.mp4)
+[**Get User Token(Video)**](vids/getting_token_and_cookie.gif)
 
-[**Get Course Id**](vids/getting_course_id.mp4)
+[**Get Course Id(Video)**](vids/getting_course_id.gif)
 
 
 # Running
