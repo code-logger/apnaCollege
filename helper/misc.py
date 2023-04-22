@@ -27,8 +27,8 @@ def extract_course(data):
         # log.info("In the section "+section_)
         name_ = section_['title'];#time.sleep(3);
         complete_path = FOLDER_PATH+"/"+name_
-        if(i<=38):
-            print("skipping ",name_);i+=1;continue
+        #if(i<=38):
+        #    print("skipping ",name_);i+=1;continue
         if(not os.path.exists(complete_path)):
             os.makedirs(complete_path)
             log.info("Folder Created for section: "+name_)
