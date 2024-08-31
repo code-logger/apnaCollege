@@ -1,12 +1,13 @@
 import requests 
 import logging
 # from ..config import COURSE_NAME, TOKEN
-from config import COURSE_NAME, TOKEN,COURSE_ID,COOKIE_TOKEN
+from config import COURSE_NAME, TOKEN,COOKIE_TOKEN
 log = logging.getLogger(__name__)
 
 cookies = {
     "slim_session":COOKIE_TOKEN
 }
+COURSE_ID = None
 headers = {
     'authority': 'www.apnacollege.in',
     'accept': 'application/json',
@@ -21,6 +22,7 @@ headers = {
 
 
 def course_details():
+    global COURSE_ID
     headers_copy = headers
     headers_copy['referer'] = "https://www.apnacollege.in/path-player?courseid="+COURSE_NAME
     URL = "https://www.apnacollege.in/api/course/{}?contents&path-player".format(COURSE_NAME)
@@ -31,7 +33,8 @@ def course_details():
         cookies=cookies,
         headers=headers_copy)
         log.info("Got Data for the course")
-        return response.json()
+        res_json = response.json()
+        COURSE_ID = res_json['course']['id']
     except Exception as e:
         log.error(str(e))
 

@@ -1,6 +1,4 @@
-FOLDER_PATH="/home/azar/course/data" # Folder where the course will be saved 
+FOLDER_PATH="course_content" # Folder where the course will be saved ,try to make in the same folder and add relative path 
 TOKEN=""# TOKEN that was extracted  , for details in Readme File 
-
-COURSE_ID="62d291f4c6792dabb401dcfd"
-COURSE_NAME ="placement-course-java" # Course Name ,ex :- alpha-batch-3, alpha-batch-2
-COOKIE_TOKEN=""
+COURSE_NAME ="delta-batch-3" # Course Name ,copied from the web url 
+COOKIE_TOKEN="" # copied from session cookies, other steps are same 
