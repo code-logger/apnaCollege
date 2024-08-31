@@ -7,7 +7,7 @@ log = logging.getLogger(__name__)
 import subprocess
 def handle_pdf_download(data,folder_path):
     # response = get_pdf_url(data['title'])
-    complete_data = download_pdf(data['data']['pdf'],folder_path+"/"+data['title'].replace("\\"," ").replace("/"," ").replace("?"," ")+".pdf")
+    complete_data = download_pdf(data['data']['pdf_full'],folder_path+"/"+data['title'].replace("\\"," ").replace("/"," ").replace("?"," ")+".pdf")
 
 def parse_m3u8_data(dt):
     dt = dt.split("\n")
@@ -27,6 +27,7 @@ def extract_course(data):
         # log.info("In the section "+section_)
         name_ = section_['title'];#time.sleep(3);
         complete_path = FOLDER_PATH+"/"+name_
+        complete_path= complete_path.strip();
         #if(i<=38):
         #    print("skipping ",name_);i+=1;continue
         if(not os.path.exists(complete_path)):
@@ -36,7 +37,7 @@ def extract_course(data):
             log.info("Folder already exists "+complete_path)
             time.sleep(4);continue
         description_file = complete_path +"/README.txt"
-        with open(description_file, "w") as file:
+        with open(description_file, "w+") as file:
             file.write(section_['description'])
         for each in section_['learningPath']:
             if(each['type'] == "pdf"):
@@ -53,5 +54,5 @@ def extract_course(data):
                 source_data = get_m3u8_info(video_data['video']['sourceid'])
                 parsed_url = parse_m3u8_data(source_data)
                 # subprocess.call(["ffmpeg", "-i", "{}".format(parsed_url),"-c" , "copy" ,"-bsf:a", "aac_adtstoasc", "".format(complete_video_path)])
-                subprocess.call("ffmpeg -i {} -c copy -bsf:a aac_adtstoasc '{}'".format(parsed_url,complete_video_path),shell=True)
+                subprocess.call("ffmpeg -i {} -c copy -bsf:a aac_adtstoasc \"{}\"".format(parsed_url,complete_video_path),shell=True)
             time.sleep(2)

@@ -27,7 +27,8 @@ def course_details():
     try:
         log.info("Trying to get Data for course: "+COURSE_NAME)
         response = requests.get(
-        'https://www.apnacollege.in/api/course/placement-course-java?contents&path-player',
+        URL,
+        cookies=cookies,
         headers=headers_copy)
         log.info("Got Data for the course")
         return response.json()
@@ -48,7 +49,7 @@ def download_pdf(url_file_name,file_name):
         'accept-language': 'en-GB,en-US;q=0.9,en;q=0.8',
     }
     try:
-        url = "https://api.us-e2.learnworlds.com/unlock/file?lw_client=62a6cd5e1e9e2fbf212d608d&access_token={}&file={}".format(TOKEN,url_file_name)
+        url = url_file_name
         log.info("Trying to download pdf")
         response = requests.get(url,headers=headers)
         with open(file_name,"wb") as f:
