@@ -3,6 +3,8 @@ from config import FOLDER_PATH
 import logging 
 from helper.InternalApis import get_pdf_url ,download_pdf,get_video_details,get_m3u8_info
 import time
+import re 
+
 log = logging.getLogger(__name__)
 import subprocess
 def handle_pdf_download(data,folder_path):
@@ -18,6 +20,11 @@ def parse_m3u8_data(dt):
         if(each.find("720") != -1):
             next= True
 
+def make_path_safe(input_path):
+    unsafe_chars = r'[<>:"/\\|?*]'
+    safe_path = re.sub(unsafe_chars, '_', input_path)
+    safe_path = re.sub(r'\s+', '_', safe_path)
+    return safe_path
 
 def extract_course(data):
     log.info("Trying to Create Folders")
@@ -26,7 +33,7 @@ def extract_course(data):
         section_ = data['course']['sections'][each]
         # log.info("In the section "+section_)
         name_ = section_['title'];#time.sleep(3);
-        complete_path = FOLDER_PATH+"/"+name_
+        complete_path = FOLDER_PATH+"/"+make_path_safe(name_)
         complete_path= complete_path.strip();
         #if(i<=38):
         #    print("skipping ",name_);i+=1;continue
@@ -49,7 +56,7 @@ def extract_course(data):
                 video_data = get_video_details(each['id']);print(each['id'])
                 print(video_data)
                 log.info("Trying To Download Video : "+video_data['video']['title'])
-                complete_video_path = complete_path+"/"+video_data['video']['title'].replace("\\"," ").replace("/"," ").replace("?"," ").replace("'","^")+".mp4"
+                complete_video_path = complete_path+"/"+make_path_safe(video_data['video']['title'])+".mp4"
                 complete_video_path = complete_video_path
                 source_data = get_m3u8_info(video_data['video']['sourceid'])
                 parsed_url = parse_m3u8_data(source_data)
