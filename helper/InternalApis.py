@@ -35,6 +35,7 @@ def course_details():
         log.info("Got Data for the course")
         res_json = response.json()
         COURSE_ID = res_json['course']['id']
+        return res_json
     except Exception as e:
         log.error(str(e))
 
